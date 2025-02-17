@@ -1,0 +1,57 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Slab:wght@100..900&display=swap');
+
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.text-color{
+  color: #79ff00;
+
+}
+
+
+.main-title{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.tag-line{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.tag-line p{
+    font-size: 30px;
+    
+}
+
+.glow-text {
+    color: #79ff00;
+    text-shadow: 0 0 10px rgba(121, 255, 0 0.8),  
+                 0 0 20px rgba(121, 255, 0 0.6), 
+                 0 0 30px rgba(121, 255, 0 0.4);
+  }
+/* .glow-text {
+    color: #79ff00;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8),  rgb()
+                 0 0 20px rgba(255, 255, 255, 0.6), 
+                 0 0 30px rgba(255, 255, 255, 0.4);
+  } */
+  .motto{
+    background-color: #79ff00;
+    color: black;
+  }
+  .motto:hover{
+    
+        color: transparent; 
+        -webkit-text-stroke: 2px black;
+        
+    
+   
+  }
+  .specialCase{
+    color: #79ff00;
+  }

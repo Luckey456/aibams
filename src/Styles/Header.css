@@ -1,0 +1,257 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&family=Roboto+Slab:wght@100..900&display=swap');
+
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+    scroll-behavior: smooth;
+    
+}
+
+
+/* body {
+  overflow-y: scroll;
+  
+  /* scrollbar-color: rgba(0, 0, 0, 0.5) transparent; */
+ 
+ */
+
+/* Customize scrollbar for better smooth scrolling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+
+.primary-menu {
+  display: flex;
+  overflow: hidden;
+  left: 0;
+  top: 0;
+ 
+  
+  background-color: #040404;
+  height: 110px;
+  width: 100%;
+  z-index: 1000;
+  transition: top 0.3s;
+  transition: all 1.5s ease-in-out;
+  border-bottom: transparent;
+
+  position: sticky; 
+  
+  /* border-top: 2px solid transparent;
+  animation: splitAnimation 1.5s ease-out forwards; */
+  
+  animation: fadeIn 1s ease-out forwards;
+}
+
+@keyframes slideDown {
+  from {
+      transform: translateY(-20px);
+      opacity: 0;
+  }
+  to {
+      transform: translateY(0);
+      opacity: 1;
+  }
+}
+
+
+.primary-menu.sticky {
+  position: sticky; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  
+  z-index: 1000;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+@keyframes borderSplit {
+  0% {
+    width: 0;
+    left: 50%;
+    opacity: 0;
+  }
+  50% {
+    width: 50%;
+    left: 25%;
+    opacity: 1;
+  }
+  100% {
+    width: 100%;
+    left: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.primary-menu::before,
+.primary-menu::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  height: 1px;
+  background-color: white;
+  width: 0;
+  opacity: 0;
+  animation-delay: 1s;
+}
+
+.primary-menu::before {
+  left: 100%;
+  animation: borderSplit  1.5s ease-out forwards;
+  animation-delay: 1.4s;
+}
+
+.primary-menu::after {
+  right: 100%;
+  animation: borderSplit  1.5s ease-out forwards;
+  animation-delay: 1.4s;
+}
+
+@keyframes splitAnimation {
+  0% {
+    width: 0;
+    left: 50%;
+    opacity: 0;
+  }
+  50% {
+    width: 100%;
+    left: 0;
+    opacity: 1;
+  }
+  100% {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+
+
+@keyframes merge {
+  0% {
+    border-top: 2px solid transparent;
+  }
+  50% {
+    /* border-top: 5px solid #fcfcfc; */
+    box-shadow: -5px -5px 15px  rgb(254, 254, 254) ;
+   
+  }
+  100% {
+    border-top: 2px solid transparent;
+    box-shadow: none;
+  }
+}
+
+@keyframes splitAnimation {
+  0% {
+    width: 0;
+    left: 50%;
+    opacity: 0;
+  }
+  50% {
+    width: 100%;
+    left: 0;
+    opacity: 1;
+  }
+  100% {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+
+
+
+.primary-menu #logoHeader a {
+  font-style: normal;
+  color: #f9f6f6;
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 1.4;
+  font-size: 30px;
+  letter-spacing: 1px;
+}
+
+#logoHeader {
+  padding-right: 30px;
+  border-right: 1px solid rgb(255 255 255 / 60%);
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+  padding-left: 10px;
+}
+
+.menu-container {
+  border: #ddd;
+}
+
+.one-page-menu {
+  align-items: center;
+}
+
+.menu-container {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  margin-right: 40px;
+  border-right: 1px solid rgb(255 255 255 / 60%);
+}
+
+.menu-item {
+  padding: 14px 20px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-link {
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: block;
+}
+
+.menu-link:hover {
+  color: rgb(1, 252, 22);
+  
+ 
+}
+
+.tile {
+  display: inline-flex;
+}
+
+.tile-text {
+  display: inline-flex;
+}
