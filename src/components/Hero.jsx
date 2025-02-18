@@ -2,8 +2,11 @@ import { React } from "react";
 import "../Styles/Hero.css";
 import "../Styles/Button.css";
 import "../Styles/cards.css";
+import "../Styles/loder.css";
 import Buttonsign from "../components/button.jsx";
 import gifPath from "../assets/ctrl-k-630 (1).gif"; // Import the GIF
+import Card from "../components/card";
+
 
 function Hero() {
   return (
@@ -14,7 +17,10 @@ function Hero() {
             <h1>
               AIBAMS <span className=" specialCase glow-text ">WebX</span>
             </h1>
+            
+            
           </div>
+         
 
           <div className="tag-line  text-center pt-5 ">
             <p>
@@ -31,7 +37,16 @@ function Hero() {
 
       <section className="product">
         <div className="product-title text-3xl text-center pt-50">
+          <div className="flex justify-center items-center  ">
           <h1 className=" ">Our Product</h1>
+          <div className="loading  justify-center items-center pl-10  ">
+  <svg width="64px" height="48px">
+      <polyline points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24" id="back"></polyline>
+    <polyline points="0.157 23.954, 14 23.954, 21.843 48, 43 0, 50 24, 64 24" id="front"></polyline>
+  </svg>
+</div>
+          </div>
+          
         </div>
         <div className="pt-25 text-5xl text-center">
           <h2>
@@ -40,137 +55,125 @@ function Hero() {
           </h2>
         </div>
 
-        <div className="cards flex flex-row space-x-30 pt-25 pl-30  " >
+        <div className="cards flex flex-row space-x-30 pt-25 pl-30  ">
+          {/* //First card... */}
 
-            {/* //First card... */}
-
-        <div className="card hover:!bg-red-600">
-          <div className="card-details">
-            <p className="text-title">Product A</p>
-            <p className="text-body">Card Details</p>
+          <div className="card ">
+            <div className="card-details">
+              <p className="text-title">Product </p>
+              <p className="text-body"> Details</p>
+            </div>
+            <a className="card-button" href="#link">
+              Try
+            </a>
           </div>
-          <a className="card-button" href="#link">
-            Try
-          </a>
-        </div>
 
-        {/* //Second card... */}
+          {/* //Second card... */}
 
-        <div className="card">
-          <div className="card-details">
-            <p className="text-title">Product B</p>
-            <p className="text-body">Card Details</p>
+          <div className="card">
+            <div className="card-details">
+              <p className="text-title">Product </p>
+              <p className="text-body"> Details</p>
+            </div>
+            <a className="card-button" href="#link">
+              Try
+            </a>
           </div>
-          <a className="card-button" href="#link">
-            Try
-          </a>
-        </div>
 
-        {/* //Third card... */}
+          {/* //Third card... */}
 
-        <div className="card">
-          <div className="card-details">
-            <p className="text-title">Product C</p>
-            <p className="text-body">Card Details</p>
+          <div className="card">
+            <div className="card-details">
+              <p className="text-title">Product </p>
+              <p className="text-body"> Details</p>
+            </div>
+            <a className="card-button" href="#link">
+              Try
+            </a>
           </div>
-          <a className="card-button" href="#link">
-            Try
-          </a>
-        </div>
 
-        {/* //Forth card... */}
+          {/* //Forth card... */}
 
-        <div className="card hover:!bg-amber-800">
-          <div className="card-details">
-            <p className="text-title">Product D</p>
-            <p className="text-body">Card Details</p>
+          <div className="card">
+            <div className="card-details">
+              <p className="text-title">Product </p>
+              <p className="text-body"> Details</p>
+            </div>
+            <a className="card-button " href="#link">
+              Try
+            </a>
           </div>
-          <a className="card-button bg-amber-400" href="#link">
-            Try
-          </a>
-        </div>
 
-        {/* //Fifth card... */}
+          {/* //Fifth card... */}
 
-        <div className="card hover:!bg-amber-800">
-          <div className="card-details">
-            <p className="text-title">Product E</p>
-            <p className="text-body">Card Details</p>
+          <div className="card ">
+            <div className="card-details">
+              <p className="text-title">Product </p>
+              <p className="text-body"> Details</p>
+            </div>
+            <a className="card-button " href="#link">
+              Try
+            </a>
           </div>
-          <a className="card-button bg-amber-400" href="#link">
-            Try
-          </a>
         </div>
-
-        </div>
-
       </section>
 
-    <section className="content-text pt-50">
-      <div className="passage text-center">
+      <section className="content-text pt-50">
+        <div className="passage text-center">
+          <p className="text-2xl tracking-wider pt-10 pb-10 ">
+            Got something to improve? There is an app for that. <br />
+            No complexity, no cost, just a one-click install.
+          </p>
 
-        <p className="text-2xl tracking-wider pt-10 pb-10 ">Got something to improve? There is an app for that. <br />
-          No complexity, no cost, just a one-click install.</p>
+          <p className="text-2xl tracking-wider pt-10 pb-10 ">
+            Each app simplifies a process and empowers more people. <br />
+            Imagine the impact when everyone gets the right tool for the job,
+            with perfect integration.
+          </p>
+          <p></p>
+        </div>
+      </section>
 
-          
-        <p className="text-2xl tracking-wider pt-10 pb-10 ">Each app simplifies a process and empowers more people. <br />
-          Imagine the impact when everyone gets the right tool for the job, with perfect integration.</p>
-        <p></p>
-      </div>
-    </section>
 
-    <section className="work text-center pt-10">
-      <h1>
-        <span className=" text-color pr-5 " >
-        Level up
-        </span>
-         your quality of work
-      </h1>
+      <Card/>
 
-      <div className="video flex items-center justify-center pt-30 pb-30  ">
+      <section className="work text-center pt-10">
+        <h1>
+          <span className=" text-color pr-5 ">Level up</span>
+          your quality of work
+        </h1>
 
-      <iframe
-        width="560"
-        height="315"
-        src="https://www.youtube.com/embed/mi_XJ9fDJgI"
-        title="YouTube video player"
-        frameBorder="0"
-        allow=" autostart; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowFullScreen
-      ></iframe>
+        <div className="video flex items-center justify-center pt-30 pb-30  ">
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/mi_XJ9fDJgI"
+            title="YouTube video player"
+            frameBorder="0"
+            allow=" autostart; accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </div>
+      </section>
+      <section className="work text-center pt-10">
+        <h1>
+          <span className=" text-color pr-5 ">Optimized</span>
+          for productivity
+        </h1>
 
-      </div>
-
-    </section>
-    <section className="work text-center pt-10">
-      <h1>
-        <span className=" text-color pr-5 " >
-        Optimized 
-        </span>
-        for productivity
-      </h1>
-
-      <div className="video flex items-center justify-center pt-30 pb-30  ">
-        <img src={gifPath} alt="Productivity GIF" />
-      </div>
-
-    </section>
-    <section className=" text-2xl text-center pt-10 tracking-wider">
-      <h1>
-      Unleash <br /> your
-        <span className=" pl-10 text-color pr-5 " >
-         growth potential
-        </span>
-        
-      </h1>
-      <div className="flex items-center justify-center pt-20 pb-20">
-      <Buttonsign/>
-      </div>
-      
-
-      
-
-    </section>
+        <div className="video flex items-center justify-center pt-30 pb-30  ">
+          <img src={gifPath} alt="Productivity GIF" />
+        </div>
+      </section>
+      <section className=" text-2xl text-center pt-10 tracking-wider">
+        <h1>
+          Unleash <br /> your
+          <span className=" pl-10 text-color pr-5 ">growth potential</span>
+        </h1>
+        <div className="flex items-center justify-center pt-20 pb-20">
+          <Buttonsign />
+        </div>
+      </section>
 
       <section className="content-motto pt-5">
         <div className=" motto font-medium text-center   ">

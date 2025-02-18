@@ -1,5 +1,4 @@
-
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "../Styles/spotlightBorder.css";
 import { Spotlight } from "../components/ui/spotlight-new";
 import "../Styles/Starter.css";
@@ -7,53 +6,119 @@ import "../Styles/spotlightBorder.css";
 import "../Styles/Arrowdown.css";
 import enhanceScrollBehavior from "../components/enhanceScrollBehavior ";
 
+
+
+document.documentElement.style.scrollBehavior = "auto"; // Ensure no smooth scrolling conflicts
+window.scrollTo(0, 0); // Reset scroll
+document.documentElement.style.willChange = "scroll-position"; // Force repaint
+document.documentElement.offsetHeight; // Force reflow before animation
+
+
 function Starter() {
   const [borderSplitStarted, setBorderSplitStarted] = useState(false);
   const [navbarReached, setNavbarReached] = useState(false);
   const [showArrow, setShowArrow] = useState(true);
-  const [autoScrolled, setAutoScrolled] = useState(false);
+  const shootingLineRef = useRef(null);
+  const animationFrameRef = useRef(null);
 
   useEffect(() => {
-    enhanceScrollBehavior();
-    const header = document.querySelector("nav");
-    if (!header || autoScrolled) return;
+    console.log("Effect ran"); // Debugging step 1
 
-    const headerTop = header.offsetTop;
-    console.log('headerTop:', headerTop);
+    const startAnimation = () => {
+      enhanceScrollBehavior();
 
-    const startAutoScroll = () => {
-      console.log('startAutoScroll called');
-      setAutoScrolled(true);
-      const startTime = Date.now();
-      const duration = 2000; // Duration for first phase (2 seconds)
-      const scrollStep = window.innerHeight * 0.009; // Smaller steps (5% of viewport)
+      const header = document.querySelector("nav.primary-menu");
+      if (!header) {
+        console.error("Navigation header not found");
+        return;
+      }
+      console.log("Header found:", header);
 
-      const animateScroll = () => {
-        const elapsed = Date.now() - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const scrollY = progress * headerTop;
+      const shootingLine = shootingLineRef.current;
+      if (!shootingLine) {
+        console.error("Shooting line element not found");
+        return;
+      }
+      console.log("Shooting line found:", shootingLine);
 
-        window.scrollTo({ top: scrollY, behavior: "smooth" });
+      const headerTop = header.getBoundingClientRect().top + window.scrollY;
+      console.log("Header position:", headerTop);
 
-        if (elapsed < duration) {
-          setTimeout(animateScroll, 32); // 16ms = 60fps
-        } else {
-          setBorderSplitStarted(true);
-          setNavbarReached(true);
-          setShowArrow(false);
+      // Reset page scroll before animation
+      window.scrollTo(0, 0);
+      shootingLine.style.transform = "translateY(-150px) scaleY(0.5)";
+      shootingLine.style.opacity = "1";
+
+      // Ensuring the reflow is forced before animation starts
+      shootingLine.offsetHeight;
+
+      const easeOutQuad = (t) => t * (2 - t); // Smooth easing function
+
+      const startScrollAnimation = () => {
+        let startTime = null;
+        const duration = 2000; // 2 seconds
+
+        if (!shootingLineRef.current) {
+          console.error("🚨 Shooting line ref is null! Animation cannot apply.");
+          return;
         }
+        
+
+        const animate = (timestamp) => {
+          if (!startTime) startTime = timestamp;
+          const elapsed = timestamp - startTime;
+          const progress = Math.min(elapsed / duration, 1);
+          const easedProgress = easeOutQuad(progress);
+        
+          const scrollPosition = Math.round(headerTop * easedProgress);
+          window.scrollTo(0, scrollPosition);
+        
+          let yPos = -150;
+          let scale = 0.5;
+        
+          if (progress <= 0.3) {
+            yPos = -150 + (progress / 0.3) * 180;
+          } else if (progress <= 0.6) {
+            yPos = 30 + ((progress - 0.3) / 0.3) * 70;
+            scale = 0.5 + ((progress - 0.3) / 0.3) * 0.5;
+          } else {
+            yPos = 100 + ((progress - 0.6) / 0.4) * 120;
+            scale = 1 - ((progress - 0.6) / 0.4) * 0.5;
+          }
+        
+          console.log(`Animation progress: ${progress.toFixed(2)}, YPos: ${yPos}, Scale: ${scale}`);
+        
+          shootingLineRef.current.style.transform = `translateY(${yPos}px) scaleY(${scale})`;
+        
+          if (progress > 0.9) {
+            shootingLineRef.current.style.opacity = `${1 - (progress - 0.9) / 0.1}`;
+          }
+        
+          if (progress < 1) {
+            animationFrameRef.current = requestAnimationFrame(animate);
+          }
+        };
+        
+
+        animationFrameRef.current = requestAnimationFrame(animate);
       };
 
-      animateScroll();
+      // Ensure animation starts as soon as possible
+      setTimeout(() => {
+        console.log("Starting animation...");
+        startScrollAnimation();
+      }, 500);
     };
 
-    // Start auto-scroll after a brief delay
-    setTimeout(startAutoScroll, 0);
+    // Start animation when the component mounts
+    startAnimation();
 
     return () => {
-      // Do nothing
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
     };
-  }, [autoScrolled]);
+  }, []);
 
   return (
     <>
@@ -63,7 +128,14 @@ function Starter() {
         <p className="tagline">AI Business & Management System</p>
 
         <div className="shooting-line-wrapper">
-          <div className="shooting-line" id="shooting-line"></div>
+          <div
+            className="shooting-line"
+            ref={shootingLineRef}
+            style={{
+              transform: "translateY(-150px) scaleY(0.5)",
+              opacity: 1,
+            }}
+          />
         </div>
 
         {showArrow && (
