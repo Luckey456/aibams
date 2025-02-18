@@ -52,24 +52,21 @@ function Starter() {
       const startScrollAnimation = () => {
         let startTime = null;
         const duration = 2000; // 2 seconds
-
-        if (!shootingLineRef.current) {
-          console.error("🚨 Shooting line ref is null! Animation cannot apply.");
-          return;
-        }
-
+      
         const animate = (timestamp) => {
           if (!startTime) startTime = timestamp;
           const elapsed = timestamp - startTime;
           const progress = Math.min(elapsed / duration, 1);
           const easedProgress = easeOutQuad(progress);
-
-          const scrollPosition = Math.round(headerTop * easedProgress) - 10; // 🔥 Fix to reach exact top
+      
+          const scrollPosition = Math.round(headerTop * easedProgress) ; // No offset
           window.scrollTo(0, scrollPosition);
-
+      
           let yPos = -150;
           let scale = 0.5;
-
+          let scaleX = 1; // Keep horizontal scale at 1 initially
+          let borderRadius = "50%"; // Initial rounded effect for smooth transition
+      
           if (progress <= 0.3) {
             yPos = -150 + (progress / 0.3) * 180;
           } else if (progress <= 0.6) {
@@ -78,28 +75,37 @@ function Starter() {
           } else {
             yPos = 100 + ((progress - 0.6) / 0.4) * 120;
             scale = 1 - ((progress - 0.6) / 0.4) * 0.5;
+      
+            // Make the shooting star pointy
+            scaleX = 0.2 + (progress - 0.6) / 0.4 * 0.8;  // Scale X to make it thinner
+            borderRadius = "50% 50% 0% 0%"; // Create a pointy shape (like a triangle)
           }
-
-          console.log(`🔄 Animation progress: ${progress.toFixed(2)}, YPos: ${yPos}, Scale: ${scale}`);
-
-          shootingLineRef.current.style.transform = `translateY(${yPos}px) scaleY(${scale})`;
-
+      
+          // Apply transformations to the shooting line
+          shootingLineRef.current.style.transform = `translateY(${yPos}px) scaleY(${scale}) scaleX(${scaleX})`;
+          shootingLineRef.current.style.borderRadius = borderRadius;
+      
           if (progress > 0.9) {
             shootingLineRef.current.style.opacity = `${1 - (progress - 0.9) / 0.1}`;
           }
-
+      
           if (progress < 1) {
             animationFrameRef.current = requestAnimationFrame(animate);
           } else {
+            // Ensure that at the end, the shooting line stays pointy and doesn't reset
+            shootingLineRef.current.style.transform = `translateY(${yPos}px) scaleY(${scale}) scaleX(${scaleX})`;
+            shootingLineRef.current.style.borderRadius = borderRadius;
+            shootingLineRef.current.style.opacity = '0'; // To fade out the line at the end (if needed)
             setTimeout(() => {
-              window.scrollTo({ top: headerTop + 20, behavior: "smooth" }); // 🔥 Fix final positioning
+              window.scrollTo({ top: headerTop + 20, behavior: "smooth" });
               console.log("✅ Final position:", window.scrollY, "Expected:", headerTop);
             }, 50);
           }
         };
-
+      
         animationFrameRef.current = requestAnimationFrame(animate);
       };
+      
 
       // Ensure animation starts as soon as possible
       setTimeout(() => {
